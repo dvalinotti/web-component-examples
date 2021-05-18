@@ -10,10 +10,26 @@ export class DvClipboardCopy {
   @State() success: Boolean = false;
   inputElement!: HTMLInputElement;
 
-  async copyToClipboard(text: string): Promise<void> {
+  async copyNodeTextToClipboard(node: Element | HTMLInputElement): Promise<void> {
+    // Use navigator to copy to clipboard if browser supports
     if ('clipboard' in navigator) {
-      return navigator.clipboard.writeText(text);
-    } return Promise.reject();
+      const text = node instanceof HTMLInputElement ? node.value : node.textContent;
+      return navigator.clipboard.writeText(text || '');
+    }
+
+    const selection = getSelection();
+    if (!selection) {
+      return Promise.reject(new Error());
+    }
+
+    selection.removeAllRanges();
+    const selectionRange = document.createRange();
+    selectionRange.selectNode(node);
+    selection.addRange(selectionRange);
+
+    document.execCommand('copy');
+    selection.removeAllRanges()
+    return Promise.resolve()
   }
 
   @Listen('focus', { capture: true })
@@ -24,7 +40,7 @@ export class DvClipboardCopy {
 
   handleClickCopy(e: MouseEvent) {
     e.preventDefault();
-    this.copyToClipboard(this.copyText)
+    this.copyNodeTextToClipboard(this.inputElement)
       .then(() => {
         this.success = true;
         setTimeout(() => {
