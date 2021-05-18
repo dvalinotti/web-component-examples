@@ -9,6 +9,9 @@ import { User } from "./types";
 export namespace Components {
     interface DvButton {
     }
+    interface DvClipboardCopy {
+        "copyText": string;
+    }
     interface DvUser {
         "user": User;
     }
@@ -34,6 +37,12 @@ declare global {
         prototype: HTMLDvButtonElement;
         new (): HTMLDvButtonElement;
     };
+    interface HTMLDvClipboardCopyElement extends Components.DvClipboardCopy, HTMLStencilElement {
+    }
+    var HTMLDvClipboardCopyElement: {
+        prototype: HTMLDvClipboardCopyElement;
+        new (): HTMLDvClipboardCopyElement;
+    };
     interface HTMLDvUserElement extends Components.DvUser, HTMLStencilElement {
     }
     var HTMLDvUserElement: {
@@ -48,12 +57,16 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "dv-button": HTMLDvButtonElement;
+        "dv-clipboard-copy": HTMLDvClipboardCopyElement;
         "dv-user": HTMLDvUserElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
     interface DvButton {
+    }
+    interface DvClipboardCopy {
+        "copyText"?: string;
     }
     interface DvUser {
         "user"?: User;
@@ -74,6 +87,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "dv-button": DvButton;
+        "dv-clipboard-copy": DvClipboardCopy;
         "dv-user": DvUser;
         "my-component": MyComponent;
     }
@@ -83,6 +97,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "dv-button": LocalJSX.DvButton & JSXBase.HTMLAttributes<HTMLDvButtonElement>;
+            "dv-clipboard-copy": LocalJSX.DvClipboardCopy & JSXBase.HTMLAttributes<HTMLDvClipboardCopyElement>;
             "dv-user": LocalJSX.DvUser & JSXBase.HTMLAttributes<HTMLDvUserElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
