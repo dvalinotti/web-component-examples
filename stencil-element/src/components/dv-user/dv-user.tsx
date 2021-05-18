@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, Host, h, Prop, Fragment } from '@stencil/core';
 import { User } from '../../types';
 
 @Component({
@@ -10,34 +10,23 @@ export class DvUser {
   @Prop() user: User;
 
   render() {
-    const { id, name, username, email } = this.user;
+    const keyValuePairs = Object.entries(this.user);
     return (
       <Host>
         <div class="user-grid">
-          <div class="key">
-            ID
-          </div>
-          <div class="value">
-            {id}
-          </div>
-          <div class="key">
-            Name
-          </div>
-          <div class="value">
-            {name}
-          </div>
-          <div class="key">
-            Username
-          </div>
-          <div class="value">
-            {username}
-          </div>
-          <div class="key">
-            Email
-          </div>
-          <div class="value">
-            {email}
-          </div>
+          {keyValuePairs.map(([key, value]) => {
+            if (typeof value !== 'object') {
+              return (
+                <Fragment>
+                  <div class="key">
+                    {key}
+                  </div><div class="value">
+                    {value}
+                  </div>
+                </Fragment>
+              )
+            }
+          })}
         </div>
       </Host>
     );
