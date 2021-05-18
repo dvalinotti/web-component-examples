@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, State } from '@stencil/core';
+import { Component, Host, h, Prop, State, Listen } from '@stencil/core';
 
 @Component({
   tag: 'dv-clipboard-copy',
@@ -8,11 +8,18 @@ import { Component, Host, h, Prop, State } from '@stencil/core';
 export class DvClipboardCopy {
   @Prop() copyText: string = '';
   @State() success: Boolean = false;
+  inputElement!: HTMLInputElement;
 
   async copyToClipboard(text: string): Promise<void> {
     if ('clipboard' in navigator) {
       return navigator.clipboard.writeText(text);
     } return Promise.reject();
+  }
+
+  @Listen('focus', { capture: true })
+  handleFocus(e: FocusEvent) {
+    e.preventDefault();
+    this.inputElement.select();
   }
 
   handleClickCopy(e: MouseEvent) {
@@ -40,6 +47,8 @@ export class DvClipboardCopy {
             value={this.copyText}
             aria-label={this.copyText}
             readonly
+            autofocus
+            ref={(el: HTMLInputElement) => this.inputElement = el}
           />
           <button
             class={`clipboard-copy-button ${this.success ? 'success' : ''}`}
