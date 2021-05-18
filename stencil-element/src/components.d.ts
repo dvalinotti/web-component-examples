@@ -5,7 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { User } from "./types";
 export namespace Components {
+    interface DvButton {
+    }
+    interface DvUser {
+        "user": User;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -22,6 +28,18 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLDvButtonElement extends Components.DvButton, HTMLStencilElement {
+    }
+    var HTMLDvButtonElement: {
+        prototype: HTMLDvButtonElement;
+        new (): HTMLDvButtonElement;
+    };
+    interface HTMLDvUserElement extends Components.DvUser, HTMLStencilElement {
+    }
+    var HTMLDvUserElement: {
+        prototype: HTMLDvUserElement;
+        new (): HTMLDvUserElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -29,10 +47,17 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "dv-button": HTMLDvButtonElement;
+        "dv-user": HTMLDvUserElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface DvButton {
+    }
+    interface DvUser {
+        "user"?: User;
+    }
     interface MyComponent {
         /**
           * The first name
@@ -48,6 +73,8 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface IntrinsicElements {
+        "dv-button": DvButton;
+        "dv-user": DvUser;
         "my-component": MyComponent;
     }
 }
@@ -55,6 +82,8 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "dv-button": LocalJSX.DvButton & JSXBase.HTMLAttributes<HTMLDvButtonElement>;
+            "dv-user": LocalJSX.DvUser & JSXBase.HTMLAttributes<HTMLDvUserElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
