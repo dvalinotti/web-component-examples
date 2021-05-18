@@ -1,4 +1,5 @@
 import { Component, Host, h, Prop, State, Listen } from '@stencil/core';
+import { copyNodeTextToClipboard } from '../../../../utils';
 
 @Component({
   tag: 'dv-clipboard-copy',
@@ -10,28 +11,6 @@ export class DvClipboardCopy {
   @State() success: Boolean = false;
   inputElement!: HTMLInputElement;
 
-  async copyNodeTextToClipboard(node: Element | HTMLInputElement): Promise<void> {
-    // Use navigator to copy to clipboard if browser supports
-    if ('clipboard' in navigator) {
-      const text = node instanceof HTMLInputElement ? node.value : node.textContent;
-      return navigator.clipboard.writeText(text || '');
-    }
-
-    const selection = getSelection();
-    if (!selection) {
-      return Promise.reject(new Error());
-    }
-
-    selection.removeAllRanges();
-    const selectionRange = document.createRange();
-    selectionRange.selectNode(node);
-    selection.addRange(selectionRange);
-
-    document.execCommand('copy');
-    selection.removeAllRanges()
-    return Promise.resolve()
-  }
-
   @Listen('focus', { capture: true })
   handleFocus(e: FocusEvent) {
     e.preventDefault();
@@ -40,7 +19,7 @@ export class DvClipboardCopy {
 
   handleClickCopy(e: MouseEvent) {
     e.preventDefault();
-    this.copyNodeTextToClipboard(this.inputElement)
+    copyNodeTextToClipboard(this.inputElement)
       .then(() => {
         this.success = true;
         setTimeout(() => {
