@@ -18,7 +18,8 @@
     const text = 'https://dval.dev';
     render(
       html`
-        <dv-clipboard-copy text=${text} />
+        <dv-clipboard-copy text=${text}></dv-clipboard-copy>
+        <dv-clipboard-copy text="https://google.com"></dv-clipboard-copy>
       `,
       document.querySelector('#demo')
     );

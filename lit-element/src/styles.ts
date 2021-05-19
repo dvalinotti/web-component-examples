@@ -1,6 +1,11 @@
 import { css } from 'lit-element';
 
 export const clipboardCopyStyles = css`
+  .container {
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
+  }
   .clipboard-copy {
     display: flex;
     align-items: center;
@@ -16,7 +21,7 @@ export const clipboardCopyStyles = css`
     padding: 0.5em 0.75em;
     font-size: 1em;
   }
-  button.clipboard-copy-button {
+  button {
     color: rgba(0, 0, 0, 0.875);
     background-color: #fafafa;
     border: none;
@@ -28,8 +33,12 @@ export const clipboardCopyStyles = css`
     font-size: 0.875em;
     transition: all 300ms ease-in-out;
   }
-  button.clipboard-copy-button:hover {
+  button:hover {
     cursor: pointer;
     background-color: #f0f0f0;
+  }
+  button.clipboard-state-button {
+    color: white;
+    width: 24ch;
   }
 `;
