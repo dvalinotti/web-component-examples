@@ -5,101 +5,35 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { User } from "./types";
 export namespace Components {
-    interface DvButton {
-    }
     interface DvClipboardCopy {
         "copyText": string;
     }
-    interface DvUser {
-        "user": User;
-    }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
-    }
 }
 declare global {
-    interface HTMLDvButtonElement extends Components.DvButton, HTMLStencilElement {
-    }
-    var HTMLDvButtonElement: {
-        prototype: HTMLDvButtonElement;
-        new (): HTMLDvButtonElement;
-    };
     interface HTMLDvClipboardCopyElement extends Components.DvClipboardCopy, HTMLStencilElement {
     }
     var HTMLDvClipboardCopyElement: {
         prototype: HTMLDvClipboardCopyElement;
         new (): HTMLDvClipboardCopyElement;
     };
-    interface HTMLDvUserElement extends Components.DvUser, HTMLStencilElement {
-    }
-    var HTMLDvUserElement: {
-        prototype: HTMLDvUserElement;
-        new (): HTMLDvUserElement;
-    };
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
-    }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
-    };
     interface HTMLElementTagNameMap {
-        "dv-button": HTMLDvButtonElement;
         "dv-clipboard-copy": HTMLDvClipboardCopyElement;
-        "dv-user": HTMLDvUserElement;
-        "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
-    interface DvButton {
-    }
     interface DvClipboardCopy {
         "copyText"?: string;
     }
-    interface DvUser {
-        "user"?: User;
-    }
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
-    }
     interface IntrinsicElements {
-        "dv-button": DvButton;
         "dv-clipboard-copy": DvClipboardCopy;
-        "dv-user": DvUser;
-        "my-component": MyComponent;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "dv-button": LocalJSX.DvButton & JSXBase.HTMLAttributes<HTMLDvButtonElement>;
             "dv-clipboard-copy": LocalJSX.DvClipboardCopy & JSXBase.HTMLAttributes<HTMLDvClipboardCopyElement>;
-            "dv-user": LocalJSX.DvUser & JSXBase.HTMLAttributes<HTMLDvUserElement>;
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
         }
     }
 }
