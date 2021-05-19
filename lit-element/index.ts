@@ -1,1 +1,1 @@
-export { LitElement } from './src/LitElement.js';
+export { DvClipboardCopy } from './src/DvClipboardCopy.js';

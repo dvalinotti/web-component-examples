@@ -1,3 +1,3 @@
-import { LitElement } from './src/LitElement.js';
+import { DvClipboardCopy } from './src/DvClipboardCopy.js';
 
-window.customElements.define('lit-element', LitElement);
+window.customElements.define('dv-clipboard-copy', DvClipboardCopy);

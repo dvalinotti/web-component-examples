@@ -15,12 +15,10 @@
     import { html, render } from 'lit-html';
     import '../dist/lit-element.js';
 
-    const title = 'Hello owc World!';
+    const text = 'https://dval.dev';
     render(
       html`
-        <lit-element .title=${title}>
-          some more light-dom
-        </lit-element>
+        <dv-clipboard-copy text=${text} />
       `,
       document.querySelector('#demo')
     );
