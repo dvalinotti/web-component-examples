@@ -32,7 +32,3 @@ button.clipboard-copy-button:hover {
   cursor: pointer;
   background-color: #f0f0f0;
 }
-button.clipboard-copy-button.success {
-  background-color: green;
-  color: #fafafa;
-}

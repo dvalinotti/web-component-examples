@@ -19,3 +19,11 @@ export async function copyNodeTextToClipboard(node: Element | HTMLInputElement):
   selection.removeAllRanges()
   return Promise.resolve()
 }
+
+export async function copyTextToClipboard(text: string): Promise<void> {
+  try {
+    return navigator.clipboard.writeText(text || '');
+  } catch (err) {
+    return Promise.reject();
+  }
+}

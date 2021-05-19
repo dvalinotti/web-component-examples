@@ -1,5 +1,5 @@
-import { Component, Host, h, Prop, State, Listen } from '@stencil/core';
-import { copyNodeTextToClipboard } from '../../../../utils';
+import { Component, Host, h, Prop } from '@stencil/core';
+import { copyTextToClipboard } from '../../../../utils';
 
 @Component({
   tag: 'dv-clipboard-copy',
@@ -8,26 +8,15 @@ import { copyNodeTextToClipboard } from '../../../../utils';
 })
 export class DvClipboardCopy {
   @Prop() copyText: string = '';
-  @State() success: Boolean = false;
-  inputElement!: HTMLInputElement;
 
-  @Listen('focus', { capture: true })
-  handleFocus(e: FocusEvent) {
-    e.preventDefault();
-    this.inputElement.select();
-  }
-
+  // onclick event handler for Copy button
   handleClickCopy(e: MouseEvent) {
     e.preventDefault();
-    copyNodeTextToClipboard(this.inputElement)
+    copyTextToClipboard(this.copyText)
       .then(() => {
-        this.success = true;
-        setTimeout(() => {
-          this.success = false;
-        }, 3000);
+        window.alert('Copied text to clipboard!');
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         window.alert('Failed to copy to clipboard.');
       })
   }
@@ -40,17 +29,13 @@ export class DvClipboardCopy {
             type="text"
             class="clipboard-copy-input"
             value={this.copyText}
-            aria-label={this.copyText}
             readonly
-            autofocus
-            ref={(el: HTMLInputElement) => this.inputElement = el}
           />
           <button
-            class={`clipboard-copy-button ${this.success ? 'success' : ''}`}
-            aria-label="Copy to Clipboard"
+            class="clipboard-copy-button"
             onClick={(e: MouseEvent) => this.handleClickCopy(e)}
           >
-            {this.success ? 'Success!' : 'Copy'}
+            Copy
           </button>
         </div>
       </Host>
