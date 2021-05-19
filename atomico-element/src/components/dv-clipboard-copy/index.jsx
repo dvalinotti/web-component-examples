@@ -19,18 +19,25 @@ function dvClipboardCopy({ text }) {
   return (
     <host shadowDom>
       <style>{style}</style>
-      <div class="clipboard-copy">
-        <input class="clipboard-copy-input" type="text" value={text} readonly />
-        <button
-          class="clipboard-copy-button"
-          onclick={(e) => handleClick(e)}
-        >
-          Copy
-        </button>
+      <div class="container">
+        <div class="clipboard-copy">
+          <input class="clipboard-copy-input" type="text" value={text} readonly />
+          <button
+            class="clipboard-copy-button"
+            onclick={(e) => handleClick(e)}
+          >
+            Copy
+          </button>
+          <button
+            onclick={() => setCopied(false)}
+          >
+            Reset
+          </button>
+          <button class="clipboard-state-button" style={`background-color: ${copied ? 'green' : 'red'}`}>
+            {copied ? 'Copied' : 'Not Copied'}
+          </button>
+        </div>
       </div>
-      <p class={copied ? 'success' : 'fail'}>
-        {copied ? 'Copied' : 'Not Copied'}
-      </p>
     </host>
   );
 }
