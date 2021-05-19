@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, Host, h, Prop, State } from '@stencil/core';
 import { copyTextToClipboard } from '../../../../utils';
 
 @Component({
@@ -8,12 +8,14 @@ import { copyTextToClipboard } from '../../../../utils';
 })
 export class DvClipboardCopy {
   @Prop() copyText: string = '';
+  @State() copied: Boolean = false;
 
   // onclick event handler for Copy button
   handleClickCopy(e: MouseEvent) {
     e.preventDefault();
     copyTextToClipboard(this.copyText)
       .then(() => {
+        this.copied = true;
         window.alert('Copied text to clipboard!');
       })
       .catch(() => {
@@ -31,11 +33,14 @@ export class DvClipboardCopy {
             value={this.copyText}
             readonly
           />
-          <button
-            class="clipboard-copy-button"
-            onClick={(e: MouseEvent) => this.handleClickCopy(e)}
-          >
+          <button onClick={(e: MouseEvent) => this.handleClickCopy(e)}>
             Copy
+          </button>
+          <button onClick={() => this.copied = false}>
+            Reset
+          </button>
+          <button disabled class="clipboard-state-button" style={{ backgroundColor: this.copied ? 'green' : 'red'}}>
+            {this.copied ? 'Copied' : 'Not Copied'}
           </button>
         </div>
       </Host>
