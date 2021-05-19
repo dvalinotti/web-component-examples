@@ -1,3 +1,14 @@
+# Web Component Examples
+
+In this repository you will find examples of web components built using:
+
+1. Stencil.js
+2. Lit
+3. Hybrids
+4. Atomico
+
+The example component is a clipboard-copy component, which uses attributes and props/state to execute a clipboard copy command and display reactive functionality. The component idea is based on GitHub's clipboard-copy web component.
+
 ## What are Web Components?
 
 Modern web browser API for writing custom HTML elements that can be reused across frontend frameworks and libraries.
