@@ -1,8 +1,7 @@
-import { c } from "atomico";
+import { c, useState } from "atomico";
 import { copyTextToClipboard } from "../utils";
 
 const style = /*css*/ `
-  :host,
   .clipboard-copy {
     display: flex;
     align-items: center;
@@ -34,13 +33,22 @@ const style = /*css*/ `
     cursor: pointer;
     background-color: #f0f0f0;
   }
+  p.success {
+    color: green;
+  }
+  p.fail {
+    color: red;
+  }
 `;
 
 function dvClipboardCopy({ text }) {
+  const [copied, setCopied] = useState(false);
+  
   function handleClick(e) {
     e.preventDefault();
     copyTextToClipboard(text)
       .then(() => {
+        setCopied(true);
         window.alert('Copied text to clipboard!');
       })
       .catch(() => {
@@ -59,6 +67,9 @@ function dvClipboardCopy({ text }) {
           Copy
         </button>
       </div>
+      <p class={copied ? 'success' : 'fail'}>
+        {copied ? 'Copied' : 'Not Copied'}
+      </p>
     </host>
   );
 }
@@ -67,7 +78,7 @@ dvClipboardCopy.props = {
   text: {
     type: String,
     value: "",
-  },
+  }
 };
 
 export const DvClipboardCopy = c(dvClipboardCopy);
